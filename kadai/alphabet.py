@@ -17,7 +17,7 @@ def taisho():
     print("対象文字：")
     for i in num_list:
         print(i,end=" ")
-    print("\n表示文字：",)
+    print("\n表示文字:",)
     for i in num_list2:
         print(i,end=" ")
 
@@ -39,8 +39,6 @@ def taisho():
                 print("おめ～～！！！！")
                 print(f"タイム：{t1-t2}")
                 return False
-            
-                
     else:
         print("不正解です。またチャレンジして下さい")
         num_charenge -= 1
