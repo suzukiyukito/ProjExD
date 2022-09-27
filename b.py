@@ -36,7 +36,6 @@ def taisho():
             if num_list3 == []:
                 print("おめ～～！！！！")
                 return False
-                break
             
                 
     else:
