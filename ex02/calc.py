@@ -16,7 +16,10 @@ for i in range(4):
             button = tk.Button(root,text=num,font=("Times New Roman",30),width=4,height=2)
             button.bind("<1>",button_click)
             button.grid(column=j,row =i+1)
-
+        elif num == -1:
+            button = tk.Button(root,text="+",font=("Times New Roman",30),width=4,height=2)
+            button.bind("<1>",button_click)
+            button.grid(column=j,row =i+1)
 
 entry = tk.Entry(justify="right",width=10,font=("TImes New Roman",40))
 entry.grid(column=0,row=0,columnspan=3)
