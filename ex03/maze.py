@@ -5,17 +5,25 @@ cx,cy = 300,400
 def key_down(event):#キーが押された時に呼びだされる関数
     global key
     key = event.keysym
-    print(key)
+   
 
 def key_up(event):
     global key
-    key = ""           #keyに""を代入
-    print(f"key={key}")#確認のため
+    key =""
   
 def main_proc():
     global cx,cy
+    if key == "Up":
+        cy -= 20
+    elif key == "Down":
+        cy += 20
+    elif key == "Left":
+        cx -= 20
+    elif key == "Right":
+        cx += 20
+    canvas.coords(t,cx,cy)
+    root.after(50,main_proc)
     
-
 
 
 if __name__ == "__main__":
@@ -31,10 +39,14 @@ if __name__ == "__main__":
     )
 
     tori = tk.PhotoImage(file="./ex03/fig/3.png")
-    canvas.create_image(cx,cy,image=tori,tag="tori")
+    t = canvas.create_image(cx,cy,image=tori,tag="tori")
     canvas.pack()
+
     #キーが入力された時に反応する
     root.bind("<KeyPress>",key_down)
     #キーが話された時に反応する
     root.bind("<KeyRelease>",key_up)
+
+    main_proc()
+
     root.mainloop()
