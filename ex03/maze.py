@@ -52,9 +52,9 @@ def main_proc():
     #ゴールに到達したときの処理
     if mz[my][mx] == mz[7][13]:
         root.after_cancel(jid)
-        t2 = time.time()
+        t2 = time.time()#ゴールした時の時間の記録
         jid = None
-        pop_message(t2)
+        pop_message(t2)#ゴールした時間を渡す
     
 def start_end():
     canvas.create_rectangle(100, 100, 200, 200, fill="red")#スタートの床を赤に設定   
@@ -63,7 +63,7 @@ def start_end():
 #メッセージ表示
 def pop_message(time):
     global t1 
-
+    #メッセージを表示するとともにクリア時間を表示させる
     ret = messagebox.showinfo("ゴール",f"おめでとう\nクリアタイムは{int(time-t1)}秒やで")
     if ret == "ok":
         sys.exit()
@@ -106,7 +106,9 @@ if __name__ == "__main__":
     tori = tk.PhotoImage(file="./ex03/fig/3.png")
     t = canvas.create_image(cx,cy,image=tori,tag="tori")
     canvas.pack()
-    t1 = time.time()
+
+    t1 = time.time()#ゲーム開始時の時間記録
+
     main_proc()
     #キーが入力された時に反応する
     root.bind("<KeyPress>",key_down)
