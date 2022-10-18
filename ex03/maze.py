@@ -13,12 +13,12 @@ def key_down(event):#キーが押された時に呼びだされる関数
     global key
     key = event.keysym
 
-    if key == "Escape":
+    if key == "Escape":#Escapeキーが押された時の処理
         messagebox.showinfo("なんや","ようこんな機能があるのに気づいたな")
         ask = messagebox.askquestion("いいのか？","ゴールしちまうけどええんか？")
-        if ask =="yes":
+        if ask =="yes":#メッセージボックスのyesが押された時
             ret = messagebox.showinfo("ゴール",f"おめでとう\n君はズルをした・.・")
-            if ret == "ok":
+            if ret == "ok":#メッセージボックスのokが押された時
                 sys.exit()
 
 def key_up(event):
@@ -54,8 +54,8 @@ def main_proc():
         pop_message(t2)
     
 def start_end():
-    canvas.create_rectangle(100, 100, 200, 200, fill="red")   
-    canvas.create_rectangle(1300, 700, 1400, 800, fill="green")   
+    canvas.create_rectangle(100, 100, 200, 200, fill="red")#スタートの床を赤に設定   
+    canvas.create_rectangle(1300, 700, 1400, 800, fill="green")#ゴールの床を赤に設定
 
 #メッセージ表示
 def pop_message(time):
@@ -66,24 +66,25 @@ def pop_message(time):
         sys.exit()
 
 if __name__ == "__main__":
-    cx,cy = 150,150
-    mx,my = 1,1
+    cx,cy = 150,150#こうかとんの初期位置
+    mx,my = 1,1#ピクセルの初期設定
     root = tk.Tk()
-    root.title("迷えるこうかとん")
-    root.geometry("1500x900")
+    root.title("迷えるこうかとん")#タイトル
+    root.geometry("1500x900")#画面のサイズ
     canvas = tk.Canvas(
         root,
         width=1500,
         height=900,
         bg="black"
-    )
+    )#画面設定
 
+    #迷路の呼び出し
     mz = make_maze(15,9)
     show_maze(canvas,mz)
     mz[7][13] = 2
 
 
-    str_en = start_end()
+    str_en = start_end()#こうかとんのスタートとゴールの場所の装飾関数の呼び出し
 
     #スタートの地点を画像で表示
     img = Image.open("./ex03/start.png")
