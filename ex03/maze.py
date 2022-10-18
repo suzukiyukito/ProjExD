@@ -59,7 +59,7 @@ def start_end():
 
 #メッセージ表示
 def pop_message(time):
-    global t1
+    global t1 
 
     ret = messagebox.showinfo("ゴール",f"おめでとう\nクリアタイムは{int(time-t1)}秒やで")
     if ret == "ok":
