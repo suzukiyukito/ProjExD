@@ -1,7 +1,10 @@
 import tkinter as tk
+from tkinter import messagebox
 
 from maze_maker import *
 from PIL import Image,ImageTk
+
+import sys
 key = ""
 def key_down(event):#キーが押された時に呼びだされる関数
     global key
@@ -13,25 +16,38 @@ def key_up(event):
     key =""
   
 def main_proc():
-    global cx,cy,mx,my
-    if key == "Up" and mz[my-1][mx] == 0:
+    global cx,cy,mx,my,jid
+    if key == "Up" and (mz[my-1][mx] == 0 or mz[my-1][mx] ==2):
         cy -= 100
         my -= 1
-    elif key == "Down"and mz[my+1][mx]  == 0:
+    elif key == "Down"and (mz[my+1][mx]  == 0 or mz[my+1][mx]  == 2):
         cy += 100
         my += 1
-    elif key == "Left"and mz[my][mx-1]  == 0:
+    elif key == "Left"and (mz[my][mx-1]  == 0 or mz[my][mx-1]  == 2):
         cx -= 100
         mx -= 1
-    elif key == "Right"and mz[my][mx+1] == 0:
+    elif key == "Right"and (mz[my][mx+1] == 0 or mz[my][mx+1] == 2) :
         cx += 100
         mx += 1
+
     canvas.coords(t,cx,cy)
-    root.after(100,main_proc)
+    jid = root.after(100,main_proc)
+
+    if mz[my][mx] == mz[7][13]:
+        root.after_cancel(jid)
+        jid = None
+        pop_message()
     
 def start_end():
-    str = canvas.create_rectangle(100, 100, 200, 200, fill="red")   
-    end = canvas.create_rectangle(1300, 700, 1400, 800, fill="green")   
+    canvas.create_rectangle(100, 100, 200, 200, fill="red")   
+    canvas.create_rectangle(1300, 700, 1400, 800, fill="green")   
+
+#メッセージ表示
+def pop_message():
+    ret = messagebox.showinfo("ゴール","おめでとうございます")
+    if ret == True:
+        sys.exit()
+
 
 if __name__ == "__main__":
     cx,cy = 150,150
@@ -39,7 +55,6 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("迷えるこうかとん")
     root.geometry("1500x900")
-
     canvas = tk.Canvas(
         root,
         width=1500,
@@ -49,6 +64,8 @@ if __name__ == "__main__":
 
     mz = make_maze(15,9)
     show_maze(canvas,mz)
+    mz[7][13] = 2
+
 
     str_en = start_end()
 
@@ -75,5 +92,5 @@ if __name__ == "__main__":
     root.bind("<KeyPress>",key_down)
     #キーが話された時に反応する
     root.bind("<KeyRelease>",key_up)
-    
+
     root.mainloop()
