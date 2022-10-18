@@ -17,6 +17,9 @@ def key_down(event):#キーが押された時に呼びだされる関数
         messagebox.showinfo("なんや","ようこんな機能があるのに気づいたな")
         ask = messagebox.askquestion("いいのか？","ゴールしちまうけどええんか？")
         if ask =="yes":#メッセージボックスのyesが押された時
+            canvas.delete("tori")
+            canvas.create_image(1350, 750,image=tori,tag="tori")
+            canvas.pack()
             ret = messagebox.showinfo("ゴール",f"おめでとう\n君はズルをした・.・")
             if ret == "ok":#メッセージボックスのokが押された時
                 sys.exit()
