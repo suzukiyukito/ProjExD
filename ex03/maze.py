@@ -16,10 +16,8 @@ def key_down(event):#キーが押された時に呼びだされる関数
     if key == "Escape":
         messagebox.showinfo("なんや","ようこんな機能があるのに気づいたな")
         ask = messagebox.askquestion("いいのか？","ゴールしちまうけどええんか？")
-        print(ask)
         if ask =="yes":
             ret = messagebox.showinfo("ゴール",f"おめでとう\n君はズルをした・.・")
-            print(ret)
             if ret == "ok":
                 sys.exit()
 
