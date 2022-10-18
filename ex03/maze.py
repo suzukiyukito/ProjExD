@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from maze_maker import *
+
 key = ""
 cx,cy = 300,400
 def key_down(event):#キーが押された時に呼びだされる関数
@@ -28,7 +30,7 @@ def main_proc():
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.title("迷える肛門")
+    root.title("迷えるこうかとん")
     root.geometry("1500x900")
 
     canvas = tk.Canvas(
@@ -37,6 +39,9 @@ if __name__ == "__main__":
         height=900,
         bg="black"
     )
+
+    mz = make_maze(15,9)
+    show_maze(canvas,mz)
 
     tori = tk.PhotoImage(file="./ex03/fig/3.png")
     t = canvas.create_image(cx,cy,image=tori,tag="tori")
