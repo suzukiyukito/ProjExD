@@ -9,7 +9,7 @@ from pygame.locals import *
 import random
 
 import sys
-from PIL import Image
+
 
 width,height,width2,height2 =  900,400,1000,500
 a,b,c,d =random.randint(0,1600),random.randint(0,900),random.randint(0,1600),random.randint(0,900)
@@ -59,7 +59,7 @@ def main():
     tori_pg = pg.image.load(".\ex04\pg_bg.jpg")
     rect_bg = tori_pg.get_rect()
 # tori_pgで背景画像をロードし、rect_bgで背景の大きさを取得している。
-    vx=vx1=vy=vy1 =2 
+    vx,vx1,vy,vy1=2,2,2,2 
     
     font = pg.font.Font(None,80)#ゲームオーバーに表示する文字設定
 
@@ -82,11 +82,6 @@ def main():
 
 
     t2 =pg.image.load("ex04/fig/1.png")   #GAME OVER時の鳥
-    img2 = pg.transform.rotozoom(t2,0,2.0)            
-
-
-
-    
 ######################################
     a,rect1 = move_scl1()
     b,rect2 = move_scl2()
@@ -110,21 +105,15 @@ def main():
         pg.draw.rect(screen, (122,122,122),button1)
         screen.blit(text2_1,text_rect2_1)
         screen.blit(text2,text_rect2)
-        print("a")
 
         img2 = pg.transform.rotozoom(t2,0,bairitu)            
         rect_img2 = img2.get_rect()
-        img_trans = img2.transpose(Image.FLIP_LEFT_RIGHT)
+        #img_transpose = img.transpose(Image.FLIP_LEFT_RIGHT)
         rect_img2.center = (width2,height2)
-        screen.blit(img_trans,rect_img2)
+        screen.blit(img2,rect_img2)
         pg.display.update(rect_img2)
-        pg.time.wait(100)
+        pg.time.wait(50)
         bairitu *= 1.1
-  
-        
-
-
-
 
     while True:
         screen.blit(tori_pg,rect_bg)       #背景表示
