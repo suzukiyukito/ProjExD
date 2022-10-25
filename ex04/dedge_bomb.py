@@ -1,8 +1,4 @@
 
-from ast import While
-from cmath import rect
-from msilib.schema import Font
-from tkinter import font
 import pygame as pg
 from pygame.locals import *
 
