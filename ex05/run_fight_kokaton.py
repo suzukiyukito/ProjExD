@@ -55,7 +55,7 @@ class Bird:
                     self.rct.centery -= delta[1]*5
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
-
+#爆弾の関数
 class Bomb:
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
@@ -75,7 +75,7 @@ class Bomb:
         self.vx *= yoko
         self.vy *= tate
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
-
+#第2の敵の敵キャラ
 class Enemy():
     ran = random()
     def __init__(self,image,angle,xy):
@@ -99,7 +99,7 @@ class Enemy():
         else:
             self.angle  = 0
         self.blit(scr)
-
+"""敵キャラがブレブレになりながら、回転している関数"""
 
 
 #Continueを押させる気のないGAMEOVER画面
@@ -107,8 +107,8 @@ class END:
     bairitu = 2.0
     def __init__(self,img,xy):
         self.font = pg.font.Font(None,80)#ゲームオーバーに表示する文字設定
-        self.img = pg.image.load(img)
-        self.wid2,self.ht2 = xy
+        self.img = pg.image.load(img)#画像読み込み
+        self.wid2,self.ht2 = xy #画像の中心
     
     def blit(self,moji,rct,scr:Screen):
         scr.sfc.blit(moji, rct)
@@ -123,15 +123,14 @@ class END:
         text2 = self.font.render("CONTINUE??",True,(255,255,255))
         text_rect2 = text2.get_rect(center=(1400//2,900//2))
         
-
         text2_1 = self.font.render("CONTINUE??",True,(0,0,0))
         text_rect2_1 = text2_1.get_rect(center=(1400//2-3,900//2-3))
-        
+        """２つの文字を少しずらして張り付けることで、立体的に見せることができる"""
         #枠の作成
         button1 = pg.Rect(1400//2-200,900//2-40,1600//4,900//10)
-        pg.draw.rect(scr.sfc, (122,122,122),button1)
+        pg.draw.rect(scr.sfc, (122,122,122),button1)#ボタン枠の作成
 
-        self.blit(text2_1,text_rect2_1,scr)
+        self.blit(text2_1,text_rect2_1,scr)#文字の張り付け
         self.blit(text2,text_rect2,scr)
         
         #徐々にこうかとんがこちらに近づいてContinueを押させないように邪魔してくるある意味敵キャラ
@@ -141,7 +140,10 @@ class END:
         self.blit(img2,rect_img2,scr)
         pg.display.update(rect_img2)
         END.bairitu *= 1.1
-
+        """
+        徐々にこうかとんが拡大してGAMEOVER時のContinueボタンを押させないように邪魔する。
+        bairituで徐々に画像を拡大する
+        """
 
 
 """
