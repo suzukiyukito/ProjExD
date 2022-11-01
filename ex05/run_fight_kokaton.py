@@ -1,6 +1,8 @@
 import pygame as pg
 import sys
 from random import randint,random
+import os
+main_dir = os.path.split(os.path.abspath(__file__))[0]
 
 def check_bound(obj_rct, scr_rct):
     """
@@ -79,12 +81,16 @@ class Bomb:
 class Enemy():
     ran = random()
     def __init__(self,image,angle,xy):
+        """
+        image:画像
+        angle:画像の中心からの回転角
+        xy:配置
+        """
         self.sfc = pg.image.load(image)
         self.angle = angle
         self.sfc2 = pg.transform.rotozoom(self.sfc,self.angle,Enemy.ran)
         self.rct = self.sfc2.get_rect()
         self.rct.center = xy
-        
 
     def blit(self, scr:Screen):
         scr.sfc.blit(self.sfc2, self.rct)
@@ -99,7 +105,19 @@ class Enemy():
         else:
             self.angle  = 0
         self.blit(scr)
-"""敵キャラがブレブレになりながら、回転している関数"""
+"""敵キャラがブレブレになりながら、回転している関数"""    
+
+# BGMや効果音をロードする関数
+def load_sound(file):
+    if not pg.mixer:
+        return None
+    file = os.path.join(main_dir, file)
+    try:
+        sound = pg.mixer.Sound(file)
+        return sound
+    except pg.error:
+        print("Warning, unable to load, %s" % file)
+    return None
 
 
 #Continueを押させる気のないGAMEOVER画面
@@ -163,6 +181,8 @@ def main():
     ene3 = Enemy("fig/enemy.png",0,(1300,200))
     end = END("fig/1.png",(1000,500))
 
+    screem_sound = load_sound("fig\呪いの旋律.mp3")
+
     clock = pg.time.Clock() # 練習1
     while True:
         scr.blit() # 練習2
@@ -181,6 +201,10 @@ def main():
 
         # 練習8
         if kkt.rct.colliderect(bkd.rct) or kkt.rct.colliderect(ene.rct) or  kkt.rct.colliderect(ene2.rct) or kkt.rct.colliderect(ene3.rct): # こうかとんrctが爆弾rctと重なったら
+            
+            if pg.mixer:
+                screem_sound.set_volume(0.3)
+                screem_sound.play()
             end.end(scr)
 
         pg.display.update() #練習2
